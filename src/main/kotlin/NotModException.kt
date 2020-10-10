@@ -1,0 +1,1 @@
+class NotModException(message: String) : Exception(message)
