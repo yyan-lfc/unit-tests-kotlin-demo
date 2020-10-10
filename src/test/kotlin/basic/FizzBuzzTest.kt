@@ -1,3 +1,6 @@
+package basic
+
+import exception.NotModException
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -58,7 +61,7 @@ class FizzBuzzTest {
      *  should [结果] when [描述单一情形]
     */
     fun `should throw exception when mod not by 3 nor 5`() {
-        val exception = assertThrows<NotModException>("should throw NotModException") {
+        val exception = assertThrows<NotModException>("should throw exception.NotModException") {
             val input = 1
 
             FizzBuzz().calculate(input)

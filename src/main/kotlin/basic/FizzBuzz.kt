@@ -1,3 +1,7 @@
+package basic
+
+import exception.NotModException
+
 class FizzBuzz {
     fun calculate(input: Int): String {
         return if (input % 3 == 0 && input % 5 == 0) {
