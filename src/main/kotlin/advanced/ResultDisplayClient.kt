@@ -1,8 +1,10 @@
 package advanced
 
-class ResultDisplayClient {
+import advanced.base.ResultDisplayBase
+
+class ResultDisplayClient : ResultDisplayBase() {
     @Throws(Exception::class)
-    fun sync(result: String?) {
+    override fun sync(result: String?) {
         // sync result to 3rd-Party Client
         System.out.printf("Start Sync %s ...%n", result) // 假设 - 开始连接
         println("Sync Step 1...") // 假设 - 执行同步第一步
