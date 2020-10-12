@@ -25,13 +25,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
 
-    testCompile 'org.mockito:mockito-core:2.28.2'
-    testCompile 'org.mockito:mockito-junit-jupiter:2.28.2'
-    testImplementation 'org.mockito:mockito-inline:2.28.2'
-
+    testImplementation "io.mockk:mockk:1.10.2"
 }
 
 test {
     useJUnitPlatform()
 }
-
