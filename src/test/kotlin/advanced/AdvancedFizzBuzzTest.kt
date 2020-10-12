@@ -2,6 +2,7 @@ package advanced
 
 import exception.NotModException
 import io.mockk.*
+import io.mockk.impl.annotations.MockK
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -12,19 +13,20 @@ import org.junit.jupiter.api.Test
  * */
 
 class AdvancedFizzBuzzTest {
+    @MockK
     private lateinit var storage: FizzBuzzStorage
 
+    @MockK
     private lateinit var inputDecodeClient: InputDecodeClient
 
+    @MockK
     private lateinit var resultDisplayClient: ResultDisplayClient
 
     private var advancedFizzBuzz: AdvancedFizzBuzz? = null
 
     @BeforeEach
     internal fun setUp() {
-        storage = mockkClass(FizzBuzzStorage::class)
-        inputDecodeClient = mockkClass(InputDecodeClient::class)
-        resultDisplayClient = mockkClass(ResultDisplayClient::class)
+        MockKAnnotations.init(this, relaxUnitFun = true)
 
         advancedFizzBuzz = AdvancedFizzBuzz(storage, inputDecodeClient, resultDisplayClient)
     }
@@ -32,43 +34,46 @@ class AdvancedFizzBuzzTest {
     @Test
     fun `should return FIZZ when mod by_3 not_5 after decode`() {
         val input = 8
+        val encodedResult = "FIZZ"
         every { inputDecodeClient.decode(input) } returns 6
-        every {resultDisplayClient.sync("FIZZ")} just Runs
-        every {storage.send("FIZZ")} just Runs
+        every {resultDisplayClient.sync(encodedResult)} just Runs
+        every {storage.send(encodedResult)} just Runs
 
         val result = advancedFizzBuzz?.calculate(input)
 
-        verify { resultDisplayClient.sync("FIZZ") }
-        verify { storage.send("FIZZ") }
-        Assertions.assertEquals("FIZZ", result)
+        verify { resultDisplayClient.sync(encodedResult) }
+        verify { storage.send(encodedResult) }
+        Assertions.assertEquals(encodedResult, result)
     }
 
     @Test
     fun `should return BUZZ when mod by 5 not 3 after decode`() {
         val input = 9
+        val encodedResult = "BUZZ"
         every { inputDecodeClient.decode(input) } returns 10
-        every {resultDisplayClient.sync("BUZZ")} just Runs
-        every {storage.send("BUZZ")} just Runs
+        every {resultDisplayClient.sync(encodedResult)} just Runs
+        every {storage.send(encodedResult)} just Runs
 
         val result = advancedFizzBuzz!!.calculate(input)
 
-        verify { resultDisplayClient.sync("BUZZ") }
-        verify { storage.send("BUZZ") }
-        Assertions.assertEquals("BUZZ", result)
+        verify { resultDisplayClient.sync(encodedResult) }
+        verify { storage.send(encodedResult) }
+        Assertions.assertEquals(encodedResult, result)
     }
 
     @Test
     fun `should return FIZZBUZZ when mod by 3 and 5 after decode`() {
         val input = 99
+        val encodedResult = "FIZZBUZZ"
         every { inputDecodeClient.decode(input) } returns 15
-        every {resultDisplayClient.sync("FIZZBUZZ")} just Runs
-        every {storage.send("FIZZBUZZ")} just Runs
+        every {resultDisplayClient.sync(encodedResult)} just Runs
+        every {storage.send(encodedResult)} just Runs
 
         val result = advancedFizzBuzz!!.calculate(input)
 
-        verify { resultDisplayClient.sync("FIZZBUZZ") }
-        verify { storage.send("FIZZBUZZ") }
-        Assertions.assertEquals("FIZZBUZZ", result)
+        verify { resultDisplayClient.sync(encodedResult) }
+        verify { storage.send(encodedResult) }
+        Assertions.assertEquals(encodedResult, result)
     }
 
     @Test
